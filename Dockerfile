@@ -2,7 +2,7 @@ FROM ubuntu:14.04
 
 MAINTAINER Carlos Moro <cmoro@deusto.es>
 
-ENV TOMCAT_VERSION 8.0.35
+ENV TOMCAT_VERSION 8.0.23
 
 # Set locales
 RUN locale-gen en_GB.UTF-8
@@ -30,9 +30,9 @@ ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
 # Get Tomcat
 RUN \
-wget --quiet --no-cookies http://apache.rediris.es/tomcat/tomcat-8/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz -O /tmp/tomcat.tgz && \
+wget http://mirror.sdunix.com/apache/tomcat/tomcat-8/v8.0.23/bin/apache-tomcat-8.0.23.tar.gz -O /tmp/tomcat.tgz && \
 tar xzvf /tmp/tomcat.tgz -C /opt && \
-mv /opt/apache-tomcat-${TOMCAT_VERSION} /opt/tomcat && \
+mv /opt/apache-tomcat-8.0.23 /opt/tomcat && \
 rm /tmp/tomcat.tgz && \
 rm -rf /opt/tomcat/webapps/examples && \
 rm -rf /opt/tomcat/webapps/docs && \
@@ -48,6 +48,7 @@ EXPOSE 8080
 EXPOSE 8009
 VOLUME "/opt/tomcat/webapps"
 WORKDIR /opt/tomcat
+
 
 # Launch Tomcat
 CMD ["/opt/tomcat/bin/catalina.sh", "run"]
