@@ -22,7 +22,8 @@ rm -rf /var/cache/oracle-jdk8-installer
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
 # Get Tomcat
-RUN apt-get install -y tomcat7
+RUN apt-get update && \
+apt-get install -y tomcat7
 
 # Add admin/admin user
 ADD tomcat-users.xml /opt/tomcat/conf/
