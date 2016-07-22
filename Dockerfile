@@ -2,8 +2,6 @@ FROM ubuntu:14.04
 
 MAINTAINER Carlos Moro <cmoro@deusto.es>
 
-ENV TOMCAT_VERSION 8.0.23
-
 # Set locales
 RUN locale-gen en_GB.UTF-8
 ENV LANG en_GB.UTF-8
@@ -29,26 +27,11 @@ rm -rf /var/cache/oracle-jdk8-installer
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
 # Get Tomcat
-RUN \
-wget http://mirror.sdunix.com/apache/tomcat/tomcat-8/v8.0.23/bin/apache-tomcat-8.0.23.tar.gz -O /tmp/tomcat.tgz && \
-tar xzvf /tmp/tomcat.tgz -C /opt && \
-mv /opt/apache-tomcat-8.0.23 /opt/tomcat && \
-rm /tmp/tomcat.tgz && \
-rm -rf /opt/tomcat/webapps/examples && \
-rm -rf /opt/tomcat/webapps/docs && \
-rm -rf /opt/tomcat/webapps/ROOT
+RUN apt-get install tomcat7
 
 # Add admin/admin user
 ADD tomcat-users.xml /opt/tomcat/conf/
 
-ENV CATALINA_HOME /opt/tomcat
-ENV PATH $PATH:$CATALINA_HOME/bin
-
-EXPOSE 8080
-EXPOSE 8009
-VOLUME "/opt/tomcat/webapps"
-WORKDIR /opt/tomcat
-
 
 # Launch Tomcat
-CMD ["/opt/tomcat/bin/catalina.sh", "run"]
+CMD service tomcat7 start
