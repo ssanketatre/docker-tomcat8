@@ -50,3 +50,5 @@ WORKDIR /opt/tomcat
 
 # Launch Tomcat
 CMD ["/opt/tomcat/bin/catalina.sh", "run"]
+
+
